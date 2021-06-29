@@ -38,7 +38,7 @@ public class LoginController implements Initializable {
 
     @FXML
     void login(ActionEvent event) throws IOException {
-        AnchorPane pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/HomeScreen.fxml")));
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("/view/HomeScreen.fxml"));
         rootPane.getChildren().setAll(pane);
     }
 
@@ -46,4 +46,31 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
+
+    private static boolean userCheck = false;
+    ArrayKeeper arraykeeper = new ArrayKeeper();
+    public boolean dataCheck(String password, String username){
+        boolean ret = false;
+        int s = 0;
+        for(int i = 0;i<ArrayKeeper.getData().size();i++){
+            if(ArrayKeeper.getData().get(i).getUsername().equals(username)){
+                if(ArrayKeeper.getData().get(i).getPassword().equals(password)){
+                    ret = true;
+                    arraykeeper.setCurrentUser(i);
+                }
+            }
+        }
+        return ret;
+    }
+
+    public void newUser() {
+        if (!userCheck) {
+            String[] adminData = {"admin", "admin", "admin"};
+            arraykeeper.SignUpData(adminData);
+            PersonalData admin = new PersonalData();
+            admin.setUserName("admin");
+            admin.setPassword("admin");
+        }
+    }
+
 }

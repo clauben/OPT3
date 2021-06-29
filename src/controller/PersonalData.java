@@ -30,6 +30,10 @@ public class PersonalData {
         this.name = name;
     }
 
+    public void setUserName(String name) {
+        this.username = name;
+    }
+
     public String getPassword() {
         return password;
     }

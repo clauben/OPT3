@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -13,6 +14,8 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class HomeController implements Initializable {
+    Stage window;
+    GoToScreens goToScreens = GoToScreens.getInstance();
 
     @FXML
     private AnchorPane rootPane;
@@ -21,9 +24,11 @@ public class HomeController implements Initializable {
     private Button backButton;
 
     @FXML
-    void back(ActionEvent event) throws IOException {
-        AnchorPane pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/LoginScreen.fxml")));
-        rootPane.getChildren().setAll(pane);
+    void back(ActionEvent event) {
+        backButton.setOnAction(E->{
+            Stage stage = new Stage();
+            goToScreens.goShopScreen(stage);
+        });
     }
 
     @Override
