@@ -1,11 +1,15 @@
 package controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
 import java.util.List;
 
-class Cart {
+public class Cart {
 
     List<Product> cartItems = new ArrayList<Product>();
+    public ObservableList<String> productString2 = FXCollections.observableArrayList(cartItems.toString());
 
     public void addProductToCartByPID(int pid) {
         Product product = getProductByProductID(pid);
@@ -36,6 +40,7 @@ class Cart {
     void printCartItems() {
         for (Product prod: cartItems) {
             System.out.println(prod.getName());
+            productString2.add(getProductByProductID(prod.getPid()).toString());
         }
     }
 

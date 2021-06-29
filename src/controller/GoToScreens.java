@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.stage.Stage;
+import model.CartScreen;
 import model.HomeScreen;
 import model.Main;
 import model.ShopScreen;
@@ -20,6 +21,15 @@ public class GoToScreens {
         ShopScreen shopscreen = new ShopScreen();
         try {
             shopscreen.start(stage);
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
+    public void goCartScreen(Stage stage){
+        CartScreen cartscreen = new CartScreen();
+        try {
+            cartscreen.start(stage);
         } catch (Exception ex){
             ex.printStackTrace();
         }

@@ -1,9 +1,6 @@
 package model;
 
-import controller.ArrayKeeper;
-import controller.ButtonSettings;
-import controller.GoToScreens;
-import controller.Products;
+import controller.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,20 +10,20 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class ShopScreen extends Application {
-    Scene ShopScreen;
-    Products products = new Products();
+public class CartScreen extends Application {
+    Scene CartScreen;
+    Cart cart = new Cart();
     int buttonNumber = 0;
     Pane pane = new Pane();
     GoToScreens goToScreens = GoToScreens.getInstance();
     ButtonSettings buttonSettings = ButtonSettings.getInstance();
-    Label welcomeLabel = new Label("Welkom op de Orderpagina");
-    Label productenLabel = new Label("Lifefitness producten");
+    Label welcomeLabel = new Label("Kies uw producten hier");
+    Label productenLabel = new Label("Mijn Producten");
     ListView<String> ListView = new ListView<>();
 
     Button btnBack = new Button("Back");
     Button kiesbtn = new Button("Kies een product");
-    Button veranderbtn = new Button("Ga naar Cart");
+    Button veranderbtn = new Button("Ga naar Shop");
     Button deletebtn = new Button("Delete product");
 
     @Override
@@ -34,15 +31,17 @@ public class ShopScreen extends Application {
         makeListView();
         makeLabels();
         makeButtons(stage);
-        pane.getChildren().addAll(welcomeLabel, kiesbtn, veranderbtn, productenLabel,ListView);
+        pane.getChildren().addAll(welcomeLabel, veranderbtn, productenLabel,ListView);
         fin(stage);
-        pane.setStyle("-fx-background-color:#bedefa");
+        pane.setStyle("-fx-background-color:#c48d8d");
+
     }
+
 
     public void veranderButton(Stage stage){
         makeMenuButton(veranderbtn);
         veranderbtn.setOnMouseClicked(E -> {
-            goToScreens.goCartScreen(stage);
+            goToScreens.goShopScreen(stage);
         });
     }
     public void makeButtons(Stage stage){
@@ -65,7 +64,6 @@ public class ShopScreen extends Application {
     public void makeDeleteButton(Stage stage){
         makeMenuButton(deletebtn);
         deletebtn.setOnAction(E-> {
-
         });
     }
     public void makeListView(){
@@ -75,7 +73,7 @@ public class ShopScreen extends Application {
         ListView.relocate(225, 190);
         ListView.setPrefHeight(200);
         ListView.setPrefWidth(373);
-        ListView.setItems(products.productString);
+        ListView.setItems(cart.productString2);
     }
     public void makeLabels(){
         makeAppointmentLabel();
@@ -83,7 +81,7 @@ public class ShopScreen extends Application {
     }
     public void makeStartLabel(){
         welcomeLabel.setFont(Font.font("Arial", 30));
-        welcomeLabel.relocate(225,100);
+        welcomeLabel.relocate(265,100);
     }
     public void makeAppointmentLabel(){
         productenLabel.setFont(Font.font("Arial", 20));
@@ -125,9 +123,9 @@ public class ShopScreen extends Application {
         buttonNumber++;
     }
     public void fin(Stage stage){
-        ShopScreen = new Scene(pane,800,600);
-        stage.setTitle("Shop");
-        stage.setScene(ShopScreen);
+        CartScreen = new Scene(pane,800,600);
+        stage.setTitle("Cart");
+        stage.setScene(CartScreen);
         stage.show();
     }
 }
