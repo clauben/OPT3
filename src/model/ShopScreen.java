@@ -5,11 +5,7 @@ import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -25,11 +21,13 @@ public class ShopScreen extends Application {
     Label welcomeLabel = new Label("Welkom op de Orderpagina");
     Label productenLabel = new Label("Lifefitness producten");
     ListView<String> ListView = new ListView<>();
+    ComboBox<String> productBox = new ComboBox<>();
 
     Button btnBack = new Button("Back");
     Button kiesbtn = new Button("Voeg toe aan Cart");
-    Button veranderbtn = new Button("Ga naar Cart");
+    Button veranderbtn = new Button("Verzend Order");
     Button deletebtn = new Button("Delete product");
+    Label verzonden = new Label();
 
     TextField tfPid = new TextField();
     TextField tfName = new TextField();
@@ -43,12 +41,22 @@ public class ShopScreen extends Application {
         makeListView();
         makeLabels();
         makeButtons(stage);
-        pane.getChildren().addAll(welcomeLabel, kiesbtn, veranderbtn, productenLabel,ListView, tfPid, tfName, tfPrice, tfStock);
+        pane.getChildren().addAll(welcomeLabel, kiesbtn, veranderbtn,productBox, productenLabel,ListView, tfPid, tfName, tfPrice, tfStock);
         fin(stage);
         pane.setStyle("-fx-background-color:#bedefa");
         tfNumbers(tfPid);
         tfNumbers(tfPrice);
         tfNumbers(tfStock);
+    }
+
+    public void makeAppointmentComboBox(){
+        productBox.relocate(100, 200);
+        fillComboBox(productBox);
+    }
+    public void fillComboBox(ComboBox combobox){
+        for(int i = 0; i< products.productString.size(); i++){
+            combobox.getItems().add(products.getProducts().toString());
+        }
     }
 
     public void relocateTextFields() {
@@ -81,9 +89,12 @@ public class ShopScreen extends Application {
     }
 
     public void veranderButton(Stage stage){
-        makeMenuButton(veranderbtn);
+        makeMenuButtons(veranderbtn);
         veranderbtn.setOnMouseClicked(E -> {
-            goToScreens.goCartScreen(stage);
+            clear();
+            verzonden.setText("Uw order is verzonden! Sluit het scherm om een nieuwe order aan te maken.");
+            verzonden.relocate(140,550);
+            pane.getChildren().add(verzonden);
         });
     }
     public void makeButtons(Stage stage){
@@ -93,34 +104,34 @@ public class ShopScreen extends Application {
         makeDeleteButton(stage);
     }
     public void makeBackButton(Stage stage){
-        btnBack.relocate(10,565);
+        btnBack.relocate(11,566);
         buttonSettings.onMouse(btnBack);
         btnBack.setOnAction(E->{
         });
     }
     public void kiesButton(Stage stage){
-        makeMenuButton(kiesbtn);
+        makeMenuButtons(kiesbtn);
         kiesbtn.setOnAction(E-> {
             addProduct();
         });
     }
     public void makeDeleteButton(Stage stage){
-        makeMenuButton(deletebtn);
+        makeMenuButtons(deletebtn);
         deletebtn.setOnAction(E-> {
 
         });
     }
     public void makeListView(){
-        makeAppointmentListView();
+        makeNewListView();
     }
-    public void makeAppointmentListView(){
+    public void makeNewListView(){
         ListView.relocate(145, 190);
         ListView.setPrefHeight(200);
         ListView.setPrefWidth(373);
         ListView.setItems(cart.productString2);
     }
     public void makeLabels(){
-        makeAppointmentLabel();
+        makeScreenLabel();
         makeStartLabel();
         makeInputLabels();
     }
@@ -128,38 +139,32 @@ public class ShopScreen extends Application {
         welcomeLabel.setFont(Font.font("Arial", 30));
         welcomeLabel.relocate(225,100);
     }
-    public void makeAppointmentLabel(){
+    public void makeScreenLabel(){
         productenLabel.setFont(Font.font("Arial", 20));
         productenLabel.relocate(335, 150);
         productenLabel.setStyle("-fx-underline: true");
     }
-    public void makeMenuButton(Button button){
+    public void makeMenuButtons(Button button){
         setButtonPosition(button, buttonNumber);
         setButtonLayout(button);
     }
 
-    public void setButtonScaleChange(Button button, Double scale){
-        button.setScaleX(scale);
-        button.setScaleY(scale);
-    }
-
     public void setButtonLayout(Button button){
-        button.setPrefWidth(150);
-        button.setPrefHeight(100);
+        button.setPrefWidth(151);
+        button.setPrefHeight(101);
     }
-
     public void setButtonPosition(Button button, int buttonNumber){
         if(buttonNumber == 0){
             button.relocate(530, 365);
         }
         else if(buttonNumber == 1){
-            button.relocate(225, 425);
+            button.relocate(225, 426);
         }
         else if(buttonNumber == 2){
-            button.relocate(225, 450);
+            button.relocate(225, 451);
         }
         else{
-            button.relocate(450, 400);
+            button.relocate(450, 401);
         }
         buttonNumber();
     }
@@ -181,6 +186,7 @@ public class ShopScreen extends Application {
         tfPid.setText("");
         tfPrice.setText("");
         tfStock.setText("");
+        pane.getChildren().remove(verzonden);
     }
 
     public void buttonNumber(){
@@ -188,7 +194,7 @@ public class ShopScreen extends Application {
     }
     public void fin(Stage stage){
         ShopScreen = new Scene(pane,800,600);
-        stage.setTitle("Shop");
+        stage.setTitle("Order Applicatie");
         stage.setScene(ShopScreen);
         stage.show();
     }

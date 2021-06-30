@@ -8,7 +8,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: ffffff;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
    <children>
       <Button fx:id="loginButton" layoutX="200.0" layoutY="334.0" mnemonicParsing="false" onAction="#login" prefHeight="40.0" prefWidth="200.0" text="Login" />
@@ -21,5 +20,6 @@
       <TextField fx:id="usernameTF" layoutX="200.0" layoutY="246.0" prefHeight="25.0" prefWidth="200.0" />
       <Label fx:id="usernameLabel" layoutX="200.0" layoutY="222.0" text="Gebruikersnaaam" />
       <Label fx:id="passwordLabel" layoutX="200.0" layoutY="276.0" text="Wachtwoord" />
+      <Button fx:id="registerbutton" layoutX="14.0" layoutY="362.0" mnemonicParsing="false" onAction="#register" text="register" />
    </children>
 </AnchorPane>

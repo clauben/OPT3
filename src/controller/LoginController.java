@@ -16,7 +16,9 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
-    Label error = new Label("Sorry, try again");
+    Label error = new Label();
+    CheckUser checkUser = new CheckUser();
+    AnchorPane pane;
 
 
     @FXML
@@ -38,9 +40,30 @@ public class LoginController implements Initializable {
     private Label passwordLabel;
 
     @FXML
-    void login(ActionEvent event) throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("/view/HomeScreen.fxml"));
+    private Button registerbutton;
+
+    @FXML
+    void register(ActionEvent event) throws IOException {
+        pane = FXMLLoader.load(getClass().getResource("/view/CreateAccount.fxml"));
         rootPane.getChildren().setAll(pane);
+    }
+
+    @FXML
+    void login(ActionEvent event) throws IOException {
+
+        if(checkUser.dataCheck(usernameTF.getText(), passwordTF.getText())) {
+            pane = FXMLLoader.load(getClass().getResource("/view/HomeScreen.fxml"));
+            rootPane.getChildren().setAll(pane);
+        } else {
+            clear();
+            error.setText("Sorry, try again");
+            error.relocate(100,350);
+            rootPane.getChildren().add(error);
+        }
+    }
+
+    public void clear(){
+        rootPane.getChildren().remove(error);
     }
 
     @Override

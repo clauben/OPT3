@@ -4,22 +4,22 @@ import controller.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class CartScreen extends Application {
     Scene CartScreen;
-    Cart cart = new Cart();
+    Products products = new Products();
     int buttonNumber = 0;
     Pane pane = new Pane();
     GoToScreens goToScreens = GoToScreens.getInstance();
     ButtonSettings buttonSettings = ButtonSettings.getInstance();
-    Label welcomeLabel = new Label("Kies uw producten hier");
-    Label productenLabel = new Label("Mijn Producten");
+    Label welcomeLabel = new Label("Overzicht van onze producten");
+    Label productenLabel = new Label("Inventaris");
     ListView<String> ListView2 = new ListView<>();
 
     Button btnBack = new Button("Back");
@@ -70,23 +70,23 @@ public class CartScreen extends Application {
         });
     }
     public void makeListView(){
-        makeAppointmentListView();
+        makeScreenListView();
     }
-    public void makeAppointmentListView(){
+    public void makeScreenListView(){
         ListView2.relocate(225, 190);
         ListView2.setPrefHeight(200);
         ListView2.setPrefWidth(373);
-        ListView2.setItems(cart.productString2);
+        ListView2.setItems(products.productString);
     }
     public void makeLabels(){
-        makeAppointmentLabel();
+        makeScreenLabel();
         makeStartLabel();
     }
     public void makeStartLabel(){
         welcomeLabel.setFont(Font.font("Arial", 30));
-        welcomeLabel.relocate(265,100);
+        welcomeLabel.relocate(230,100);
     }
-    public void makeAppointmentLabel(){
+    public void makeScreenLabel(){
         productenLabel.setFont(Font.font("Arial", 20));
         productenLabel.relocate(335, 150);
         productenLabel.setStyle("-fx-underline: true");
@@ -127,7 +127,7 @@ public class CartScreen extends Application {
     }
     public void fin(Stage stage){
         CartScreen = new Scene(pane,800,600);
-        stage.setTitle("Cart");
+        stage.setTitle("Order Applicatie");
         stage.setScene(CartScreen);
         stage.show();
     }

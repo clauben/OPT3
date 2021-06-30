@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AccountController">
+   <children>
+      <Button fx:id="submitbutton" layoutX="226.0" layoutY="297.0" mnemonicParsing="false" onAction="#submit" text="Submit" />
+      <Button fx:id="backbutton" layoutX="334.0" layoutY="297.0" mnemonicParsing="false" onAction="#back" text="Back" />
+      <TextField fx:id="nameTF" layoutX="226.0" layoutY="137.0" />
+      <TextField fx:id="usernameTF" layoutX="226.0" layoutY="179.0" />
+      <Label layoutX="178.0" layoutY="141.0" text="Name" />
+      <Label layoutX="155.0" layoutY="183.0" text="Username" />
+      <Label layoutX="157.0" layoutY="219.0" text="Password" />
+      <PasswordField fx:id="passwordConfigTF" layoutX="226.0" layoutY="253.0" />
+      <Label layoutX="178.0" layoutY="73.0" text="Create Account">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="passwordtTF" layoutX="226.0" layoutY="215.0" />
+      <Label layoutX="116.0" layoutY="257.0" text="herhaal password" />
+   </children>
+</AnchorPane>

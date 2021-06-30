@@ -27,7 +27,7 @@ public class HomeController implements Initializable {
     void back(ActionEvent event) {
         backButton.setOnAction(E->{
             Stage stage = new Stage();
-            goToScreens.goShopScreen(stage);
+            goToScreens.goCartScreen(stage);
         });
     }
 

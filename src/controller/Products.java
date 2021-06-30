@@ -20,9 +20,9 @@ public class Products {
     }
 
     public void initStoreItems() {
-        String [] productNames = {"Lux Soap", "Fair n Lovely", "MTR"};
-        Double [] productPrice = {40.00d, 60.00d, 30.00d};
-        Integer [] stock = {10, 6, 10};
+        String [] productNames = {"Hometrainer", "Crosstrainer", "Roeitrainer", "Loopband", "Spinningbike", "Squatrek"};
+        Double [] productPrice = {299.00d, 155.00d, 448.00d, 178.00d, 625.00d, 559.00d};
+        Integer [] stock = {10, 6, 10, 2, 7, 22};
 
 
         for (int i=0; i < productNames.length; i++) {

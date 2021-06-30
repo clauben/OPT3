@@ -3,7 +3,7 @@ package controller;
 public class CheckUser {
     public boolean usercheck = false;
     ArrayKeeper arraykeeper = new ArrayKeeper();
-    public static boolean dataCheck(String password, String username){
+    public boolean dataCheck(String password, String username){
         boolean ret = false;
         int s = 0;
         for(int i = 0;i<ArrayKeeper.getData().size();i++){

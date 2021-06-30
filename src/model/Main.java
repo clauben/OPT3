@@ -1,5 +1,6 @@
 package model;
 
+import controller.CheckUser;
 import controller.GoToScreens;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +14,7 @@ import java.io.IOException;
 public class Main extends Application {
     Scene loginScene;
     Stage window;
+    CheckUser checkUser = new CheckUser();
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -26,6 +28,7 @@ public class Main extends Application {
         stage.setTitle("Loginscreen");
         stage.setScene(loginScene);
         stage.show();
+        checkUser.users();
     }
 
 

@@ -8,6 +8,8 @@ public class ArrayKeeper {
 
     public void SignUpData(String[] data){
         PersonalData personalData = new PersonalData(data);
+        personalData.setUserName(data[0]);
+        personalData.setPassword(data[1]);
         currentUser++;
     }
 
