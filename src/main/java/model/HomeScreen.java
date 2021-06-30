@@ -16,11 +16,11 @@ public class HomeScreen extends Application {
     Pane home = new Pane();
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         fin(stage);
     }
 
-    public void fin(Stage stage) throws IOException {
+    public void fin(Stage stage) {
         homeScene = new Scene(home);
         stage.setTitle("Homescreen");
         stage.setScene(homeScene);

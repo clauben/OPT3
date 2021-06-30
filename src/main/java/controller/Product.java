@@ -18,7 +18,7 @@ public class Product {
         this.stock = stock;
     }
 
-    public Product(Object object[]) {
+    public Product(Object[] object) {
         this.pid = Integer.parseInt(object[0].toString());
         this.name = object[1].toString();
         this.price = Double.parseDouble(object[2].toString());
@@ -84,10 +84,7 @@ public class Product {
         if (!Objects.equals(this.price, other.price)) {
             return false;
         }
-        if (!Objects.equals(this.stock, other.stock)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.stock, other.stock);
     }
 
     @Override

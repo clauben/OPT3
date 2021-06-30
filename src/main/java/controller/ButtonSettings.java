@@ -15,21 +15,15 @@ public class ButtonSettings {
         return instance;
     }
     public static void onMouse(Button button) {
-        button.setOnMouseEntered(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                button.setScaleX(1.2);
-                button.setScaleY(1.2);
+        button.setOnMouseEntered(mouseEvent -> {
+            button.setScaleX(1.2);
+            button.setScaleY(1.2);
 
-            }
         });
-        button.setOnMouseExited(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                button.setScaleX(1);
-                button.setScaleY(1);
+        button.setOnMouseExited(mouseEvent -> {
+            button.setScaleX(1);
+            button.setScaleY(1);
 
-            }
         });
     }
     public static void setButtonLayout(Button button){

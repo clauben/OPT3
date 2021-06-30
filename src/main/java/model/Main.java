@@ -10,6 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class Main extends Application {
     Scene loginScene;
@@ -23,7 +24,7 @@ public class Main extends Application {
     }
 
     public void fin(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/view/LoginScreen.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/LoginScreen.fxml")));
         loginScene = new Scene(root);
         stage.setTitle("Loginscreen");
         stage.setScene(loginScene);

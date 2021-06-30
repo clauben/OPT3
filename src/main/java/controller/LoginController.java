@@ -44,7 +44,7 @@ public class LoginController implements Initializable {
 
     @FXML
     void register(ActionEvent event) throws IOException {
-        pane = FXMLLoader.load(getClass().getResource("/view/CreateAccount.fxml"));
+        pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/CreateAccount.fxml")));
         rootPane.getChildren().setAll(pane);
     }
 
@@ -52,7 +52,7 @@ public class LoginController implements Initializable {
     void login(ActionEvent event) throws IOException {
 
         if(checkUser.dataCheck(usernameTF.getText(), passwordTF.getText())) {
-            pane = FXMLLoader.load(getClass().getResource("/view/HomeScreen.fxml"));
+            pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/HomeScreen.fxml")));
             rootPane.getChildren().setAll(pane);
         } else {
             clear();
