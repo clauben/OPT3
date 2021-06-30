@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -14,6 +16,8 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class HomeController implements Initializable {
+    public Label welkomlabel;
+    public ImageView showroom;
     Stage window;
     GoToScreens goToScreens = GoToScreens.getInstance();
 

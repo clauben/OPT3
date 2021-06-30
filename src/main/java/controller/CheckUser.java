@@ -6,6 +6,7 @@ public class CheckUser {
     public boolean dataCheck(String password, String username){
         boolean ret = false;
         int s = 0;
+        var x = ArrayKeeper.getData();
         for(int i = 0;i<ArrayKeeper.getData().size();i++){
             if(ArrayKeeper.getData().get(i).getUsername().equals(username)){
                 if(ArrayKeeper.getData().get(i).getPassword().equals(password)){
@@ -20,7 +21,7 @@ public class CheckUser {
         if (!usercheck) {
             String[] adminData = {"admin", "admin", "admin"};
             arraykeeper.SignUpData(adminData);
-            PersonalData admin = new PersonalData();
+            PersonalData admin = new PersonalData(adminData);
             admin.setUserName("admin");
             admin.setPassword("admin");
         }

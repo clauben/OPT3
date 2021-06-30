@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
 import javafx.stage.Stage;
 
 public class ShopScreen extends Application {
@@ -16,10 +17,9 @@ public class ShopScreen extends Application {
     Cart cart = new Cart();
     int buttonNumber = 0;
     Pane pane = new Pane();
-    GoToScreens goToScreens = GoToScreens.getInstance();
     ButtonSettings buttonSettings = ButtonSettings.getInstance();
     Label welcomeLabel = new Label("Welkom op de Orderpagina");
-    Label productenLabel = new Label("Lifefitness producten");
+    Label productenLabel = new Label("Maak een Order");
     ListView<String> ListView = new ListView<>();
     ComboBox<String> productBox = new ComboBox<>();
 
@@ -28,6 +28,8 @@ public class ShopScreen extends Application {
     Button veranderbtn = new Button("Verzend Order");
     Button deletebtn = new Button("Delete product");
     Label verzonden = new Label();
+    Label explain = new Label("?");
+    Tooltip t = new Tooltip("1. Kies uit dropbox, 2. Neem over en maak offerte aan, 3. Klik op verzenden!");
 
     TextField tfPid = new TextField();
     TextField tfName = new TextField();
@@ -36,26 +38,27 @@ public class ShopScreen extends Application {
 
 
     @Override
-    public void start(Stage stage) throws Exception{
+    public void start(Stage stage) {
         relocateTextFields();
         makeListView();
         makeLabels();
         makeButtons(stage);
-        pane.getChildren().addAll(welcomeLabel, kiesbtn, veranderbtn,productBox, productenLabel,ListView, tfPid, tfName, tfPrice, tfStock);
+        pane.getChildren().addAll(welcomeLabel, explain, kiesbtn, veranderbtn,productBox, productenLabel,ListView, tfPid, tfName, tfPrice, tfStock);
         fin(stage);
         pane.setStyle("-fx-background-color:#bedefa");
         tfNumbers(tfPid);
         tfNumbers(tfPrice);
         tfNumbers(tfStock);
+        makeComboBox();
     }
 
-    public void makeAppointmentComboBox(){
-        productBox.relocate(100, 200);
+    public void makeComboBox(){
+        productBox.relocate(530, 190);
         fillComboBox(productBox);
     }
-    public void fillComboBox(ComboBox combobox){
+    public void fillComboBox(ComboBox<String> combobox){
         for(int i = 0; i< products.productString.size(); i++){
-            combobox.getItems().add(products.getProducts().toString());
+            combobox.getItems().add(products.productString.get(i));
         }
     }
 
@@ -67,23 +70,18 @@ public class ShopScreen extends Application {
     }
 
     public void tfNumbers(TextField textField){
-        textField.textProperty().addListener((new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                if (!t1.matches("\\d*"))
-                {
+        textField.textProperty().addListener(((observableValue, s, t1) -> {
+            if (!t1.matches("\\d*")) {
                 textField.setText(s.replaceAll("[^\\d]", ""));
-                }
             }
         }));
     }
 
 
     public void addProduct() {
-        Object productData[] = {tfPid.getText(), tfName.getText(), tfPrice.getText(), tfStock.getText()};
+        Object[] productData = {tfPid.getText(), tfName.getText(), tfPrice.getText(), tfStock.getText()};
         Product product = new Product(productData);
         cart.addToCart(product);
-        cart.printCartItems();
         System.out.println(cart.productString2);
         clear();
     }
@@ -105,15 +103,18 @@ public class ShopScreen extends Application {
     }
     public void makeBackButton(Stage stage){
         btnBack.relocate(11,566);
-        buttonSettings.onMouse(btnBack);
+        ButtonSettings.onMouse(btnBack);
         btnBack.setOnAction(E->{
         });
     }
     public void kiesButton(Stage stage){
         makeMenuButtons(kiesbtn);
-        kiesbtn.setOnAction(E-> {
-            addProduct();
-        });
+        kiesbtn.disableProperty().bind(tfName.textProperty().isEmpty()
+                .or(tfName.textProperty().isEmpty())
+                .or(tfPrice.textProperty().isEmpty())
+                .or(tfStock.textProperty().isEmpty())
+        );
+        kiesbtn.setOnAction(E-> addProduct());
     }
     public void makeDeleteButton(Stage stage){
         makeMenuButtons(deletebtn);
@@ -137,11 +138,11 @@ public class ShopScreen extends Application {
     }
     public void makeStartLabel(){
         welcomeLabel.setFont(Font.font("Arial", 30));
-        welcomeLabel.relocate(225,100);
+        welcomeLabel.relocate(150,100);
     }
     public void makeScreenLabel(){
         productenLabel.setFont(Font.font("Arial", 20));
-        productenLabel.relocate(335, 150);
+        productenLabel.relocate(260, 150);
         productenLabel.setStyle("-fx-underline: true");
     }
     public void makeMenuButtons(Button button){
@@ -155,10 +156,10 @@ public class ShopScreen extends Application {
     }
     public void setButtonPosition(Button button, int buttonNumber){
         if(buttonNumber == 0){
-            button.relocate(530, 365);
+            button.relocate(530, 426);
         }
         else if(buttonNumber == 1){
-            button.relocate(225, 426);
+            button.relocate(255, 426);
         }
         else if(buttonNumber == 2){
             button.relocate(225, 451);
@@ -171,13 +172,16 @@ public class ShopScreen extends Application {
 
     public void makeInputLabels() {
         Label lblpid = new Label("Product ID");
-        Label lblname = new Label("Naam");
+        Label lblname = new Label("Product");
         Label lblprice = new Label("Prijs");
         Label lblstock = new Label("aantal");
         lblpid.relocate(680, 225);
         lblname.relocate(680, 255);
         lblprice.relocate(680, 285);
         lblstock.relocate(680, 315);
+        explain.relocate(10,10);
+        explain.setFont(Font.font("Arial", FontPosture.ITALIC, 25));
+        explain.setTooltip(t);
         pane.getChildren().addAll(lblname, lblpid, lblprice, lblstock );
     }
 

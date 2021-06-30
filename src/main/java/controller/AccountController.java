@@ -11,12 +11,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class AccountController {
     AnchorPane pane;
     Label ErrorMessage = new Label();
+    Label gelukt = new Label();
     ArrayKeeper arraykeeper = new ArrayKeeper();
-    PersonalData personalData = new PersonalData();
 
     @FXML
     private AnchorPane rootPane;
@@ -41,7 +42,7 @@ public class AccountController {
 
     @FXML
     void back(ActionEvent event) throws IOException {
-        pane = FXMLLoader.load(getClass().getResource("/view/LoginScreen.fxml"));
+        pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/LoginScreen.fxml")));
         rootPane.getChildren().setAll(pane);
     }
 
@@ -56,10 +57,14 @@ public class AccountController {
         if((!(signUpData[2].equals("")))&&(!(signUpData[0].equals("")))) {
             if (signUpData[2].equals(passwordconfigtf)) {
                 arraykeeper.SignUpData(signUpData);
+                clear();
+                gelukt.setText("Uw account is aangemaakt!");
+                gelukt.relocate(100,350);
+                rootPane.getChildren().add(gelukt);
             }
         }else {
             clear();
-            ErrorMessage.setText("Fields are empty");
+            ErrorMessage.setText("Velden zijn leeg!");
             ErrorMessage.relocate(100,350);
             rootPane.getChildren().add(ErrorMessage);
         }
@@ -67,6 +72,7 @@ public class AccountController {
 
     public void clear(){
         rootPane.getChildren().remove(ErrorMessage);
+        rootPane.getChildren().remove(gelukt);
     }
 
 }

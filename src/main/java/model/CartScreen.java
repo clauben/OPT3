@@ -24,7 +24,7 @@ public class CartScreen extends Application {
 
     Button btnBack = new Button("Back");
     Button kiesbtn = new Button("Kies een product");
-    Button veranderbtn = new Button("Ga naar Shop");
+    Button veranderbtn = new Button("Order Pagina");
     Button deletebtn = new Button("Delete product");
 
 
