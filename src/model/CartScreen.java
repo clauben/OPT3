@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -19,23 +20,25 @@ public class CartScreen extends Application {
     ButtonSettings buttonSettings = ButtonSettings.getInstance();
     Label welcomeLabel = new Label("Kies uw producten hier");
     Label productenLabel = new Label("Mijn Producten");
-    ListView<String> ListView = new ListView<>();
+    ListView<String> ListView2 = new ListView<>();
 
     Button btnBack = new Button("Back");
     Button kiesbtn = new Button("Kies een product");
     Button veranderbtn = new Button("Ga naar Shop");
     Button deletebtn = new Button("Delete product");
 
+
     @Override
     public void start(Stage stage) throws Exception{
         makeListView();
         makeLabels();
         makeButtons(stage);
-        pane.getChildren().addAll(welcomeLabel, veranderbtn, productenLabel,ListView);
+        pane.getChildren().addAll(welcomeLabel, veranderbtn, productenLabel, ListView2);
         fin(stage);
         pane.setStyle("-fx-background-color:#c48d8d");
 
     }
+
 
 
     public void veranderButton(Stage stage){
@@ -70,10 +73,10 @@ public class CartScreen extends Application {
         makeAppointmentListView();
     }
     public void makeAppointmentListView(){
-        ListView.relocate(225, 190);
-        ListView.setPrefHeight(200);
-        ListView.setPrefWidth(373);
-        ListView.setItems(cart.productString2);
+        ListView2.relocate(225, 190);
+        ListView2.setPrefHeight(200);
+        ListView2.setPrefWidth(373);
+        ListView2.setItems(cart.productString2);
     }
     public void makeLabels(){
         makeAppointmentLabel();

@@ -2,7 +2,7 @@ package controller;
 
 import java.util.Objects;
 
-class Product {
+public class Product {
     private Integer pid;
     private String name;
     private Double price;
@@ -16,6 +16,13 @@ class Product {
         this.name = name;
         this.price = price;
         this.stock = stock;
+    }
+
+    public Product(Object object[]) {
+        this.pid = Integer.parseInt(object[0].toString());
+        this.name = object[1].toString();
+        this.price = Double.parseDouble(object[2].toString());
+        this.stock = Integer.parseInt(object[3].toString());
     }
 
     public String getName() {

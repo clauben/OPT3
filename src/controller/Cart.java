@@ -8,12 +8,15 @@ import java.util.List;
 
 public class Cart {
 
-    List<Product> cartItems = new ArrayList<Product>();
+    public List<Product> cartItems = new ArrayList<Product>();
     public ObservableList<String> productString2 = FXCollections.observableArrayList(cartItems.toString());
 
     public void addProductToCartByPID(int pid) {
         Product product = getProductByProductID(pid);
         addToCart(product);
+    }
+    public List<Product> getProduct() {
+        return cartItems;
     }
 
     private Product getProductByProductID(int pid) {
@@ -28,8 +31,9 @@ public class Cart {
         return product;
     }
 
-    private void addToCart(Product product) {
+    public void addToCart(Product product) {
         cartItems.add(product);
+        productString2.add(product.toString());
     }
 
     public void removeProductByPID(int pid) {
@@ -37,10 +41,8 @@ public class Cart {
         cartItems.remove(prod);
     }
 
-    void printCartItems() {
-        for (Product prod: cartItems) {
-            System.out.println(prod.getName());
-            productString2.add(getProductByProductID(prod.getPid()).toString());
+    public void printCartItems() {
+        for (int i=0; i < cartItems.size(); i++) {
         }
     }
 

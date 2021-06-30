@@ -1,14 +1,15 @@
 package model;
 
-import controller.ArrayKeeper;
-import controller.ButtonSettings;
-import controller.GoToScreens;
-import controller.Products;
+import controller.*;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -16,6 +17,7 @@ import javafx.stage.Stage;
 public class ShopScreen extends Application {
     Scene ShopScreen;
     Products products = new Products();
+    Cart cart = new Cart();
     int buttonNumber = 0;
     Pane pane = new Pane();
     GoToScreens goToScreens = GoToScreens.getInstance();
@@ -25,18 +27,57 @@ public class ShopScreen extends Application {
     ListView<String> ListView = new ListView<>();
 
     Button btnBack = new Button("Back");
-    Button kiesbtn = new Button("Kies een product");
+    Button kiesbtn = new Button("Voeg toe aan Cart");
     Button veranderbtn = new Button("Ga naar Cart");
     Button deletebtn = new Button("Delete product");
 
+    TextField tfPid = new TextField();
+    TextField tfName = new TextField();
+    TextField tfPrice = new TextField();
+    TextField tfStock = new TextField();
+
+
     @Override
     public void start(Stage stage) throws Exception{
+        relocateTextFields();
         makeListView();
         makeLabels();
         makeButtons(stage);
-        pane.getChildren().addAll(welcomeLabel, kiesbtn, veranderbtn, productenLabel,ListView);
+        pane.getChildren().addAll(welcomeLabel, kiesbtn, veranderbtn, productenLabel,ListView, tfPid, tfName, tfPrice, tfStock);
         fin(stage);
         pane.setStyle("-fx-background-color:#bedefa");
+        tfNumbers(tfPid);
+        tfNumbers(tfPrice);
+        tfNumbers(tfStock);
+    }
+
+    public void relocateTextFields() {
+        tfPid.relocate(530, 220);
+        tfName.relocate(530, 250);
+        tfPrice.relocate(530, 280);
+        tfStock.relocate(530, 310);
+    }
+
+    public void tfNumbers(TextField textField){
+        textField.textProperty().addListener((new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                if (!t1.matches("\\d*"))
+                {
+                textField.setText(s.replaceAll("[^\\d]", ""));
+                }
+            }
+        }));
+    }
+
+
+    public void addProduct() {
+        Object productData[] = {tfPid.getText(), tfName.getText(), tfPrice.getText(), tfStock.getText()};
+        Product product = new Product(productData);
+        cart.addToCart(product);
+        cart.printCartItems();
+        System.out.println(cart.productString2);
+        clear();
     }
 
     public void veranderButton(Stage stage){
@@ -60,6 +101,7 @@ public class ShopScreen extends Application {
     public void kiesButton(Stage stage){
         makeMenuButton(kiesbtn);
         kiesbtn.setOnAction(E-> {
+            addProduct();
         });
     }
     public void makeDeleteButton(Stage stage){
@@ -72,14 +114,15 @@ public class ShopScreen extends Application {
         makeAppointmentListView();
     }
     public void makeAppointmentListView(){
-        ListView.relocate(225, 190);
+        ListView.relocate(145, 190);
         ListView.setPrefHeight(200);
         ListView.setPrefWidth(373);
-        ListView.setItems(products.productString);
+        ListView.setItems(cart.productString2);
     }
     public void makeLabels(){
         makeAppointmentLabel();
         makeStartLabel();
+        makeInputLabels();
     }
     public void makeStartLabel(){
         welcomeLabel.setFont(Font.font("Arial", 30));
@@ -107,7 +150,7 @@ public class ShopScreen extends Application {
 
     public void setButtonPosition(Button button, int buttonNumber){
         if(buttonNumber == 0){
-            button.relocate(450, 425);
+            button.relocate(530, 365);
         }
         else if(buttonNumber == 1){
             button.relocate(225, 425);
@@ -119,6 +162,25 @@ public class ShopScreen extends Application {
             button.relocate(450, 400);
         }
         buttonNumber();
+    }
+
+    public void makeInputLabels() {
+        Label lblpid = new Label("Product ID");
+        Label lblname = new Label("Naam");
+        Label lblprice = new Label("Prijs");
+        Label lblstock = new Label("aantal");
+        lblpid.relocate(680, 225);
+        lblname.relocate(680, 255);
+        lblprice.relocate(680, 285);
+        lblstock.relocate(680, 315);
+        pane.getChildren().addAll(lblname, lblpid, lblprice, lblstock );
+    }
+
+    public void clear(){
+        tfName.setText("");
+        tfPid.setText("");
+        tfPrice.setText("");
+        tfStock.setText("");
     }
 
     public void buttonNumber(){
