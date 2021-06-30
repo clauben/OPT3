@@ -6,9 +6,9 @@ import javafx.collections.ObservableList;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cart {
+public class Cart extends CartBuilder {
 
-    public List<Product> cartItems = new ArrayList<Product>();
+    public List<Product> cartItems = new ArrayList<>();
     public ObservableList<String> productString2 = FXCollections.observableArrayList(cartItems.toString());
 
     public void addProductToCartByPID(int pid) {
@@ -36,14 +36,9 @@ public class Cart {
         productString2.add(product.toString());
     }
 
-    public void removeProductByPID(int pid) {
+    public void removeProduct(int pid) {
         Product prod = getProductByProductID(pid);
         cartItems.remove(prod);
-    }
-
-    public void printCartItems() {
-        for (int i=0; i < cartItems.size(); i++) {
-        }
     }
 
 }

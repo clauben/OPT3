@@ -29,23 +29,20 @@ public class CartScreen extends Application {
 
 
     @Override
-    public void start(Stage stage) throws Exception{
+    public void start(Stage stage) {
         makeListView();
         makeLabels();
         makeButtons(stage);
         pane.getChildren().addAll(welcomeLabel, veranderbtn, productenLabel, ListView2);
         fin(stage);
         pane.setStyle("-fx-background-color:#c48d8d");
-
     }
 
 
 
     public void veranderButton(Stage stage){
         makeMenuButton(veranderbtn);
-        veranderbtn.setOnMouseClicked(E -> {
-            goToScreens.goShopScreen(stage);
-        });
+        veranderbtn.setOnMouseClicked(E -> goToScreens.goShopScreen(stage));
     }
     public void makeButtons(Stage stage){
         makeBackButton(stage);
@@ -55,7 +52,7 @@ public class CartScreen extends Application {
     }
     public void makeBackButton(Stage stage){
         btnBack.relocate(10,565);
-        buttonSettings.onMouse(btnBack);
+        ButtonSettings.onMouse(btnBack);
         btnBack.setOnAction(E->{
         });
     }
@@ -96,10 +93,6 @@ public class CartScreen extends Application {
         setButtonLayout(button);
     }
 
-    public void setButtonScaleChange(Button button, Double scale){
-        button.setScaleX(scale);
-        button.setScaleY(scale);
-    }
 
     public void setButtonLayout(Button button){
         button.setPrefWidth(150);
